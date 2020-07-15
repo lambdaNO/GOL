@@ -1,5 +1,5 @@
-function Input()
-    print("next"); readline()
+function Input(T::String)
+    print(T); readline()
 end
 ###########################################################
 function drawGrid(W::World)
@@ -16,3 +16,4 @@ end
 function printInfo(W::World)
     println("Iter ",W.nIt,"     -    #(Cell) = ",W.nbCell,"     -    #(Mvt) = ",W.nbMvt)
 end
+###########################################################
