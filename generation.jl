@@ -1,0 +1,51 @@
+function nextDay(W::World)
+    cptMvt =  0; W.nbMvt = 0;
+    W.nIt = W.nIt + 1;
+    #printGrid(W.nIt,W.act_grid,W.nbMvt)
+    W.nghbd = getNghbd(W);
+    for i=1:W.nbL, j = 1:W.nbC
+        bMvt = false;
+        if (W.act_grid[i,j] == 1 && W.nghbd[i,j]<2)
+            W.nxt_grid[i,j] = 0;
+            #println("($i,$j) -> ",Int(W.act_grid[i,j])," / N = ",W.nghbd[i,j],"  -> Cas : Cell isolée")
+            bMvt = true;
+        elseif (W.act_grid[i,j]==1 && W.nghbd[i,j]>3)
+            W.nxt_grid[i,j] = 0;
+            #println("($i,$j) -> ",Int(W.act_grid[i,j])," / N = ",W.nghbd[i,j],"  -> Cas : Cell surPop")
+            bMvt = true;
+        elseif (W.act_grid[i,j]==0 && W.nghbd[i,j]==3)
+            W.nxt_grid[i,j] = 1; mvt =  1;
+            #println("($i,$j) -> ",Int(W.act_grid[i,j])," / N = ",W.nghbd[i,j], "  -> Cas : Nvle Cell")
+            bMvt = true;
+        else
+            W.nxt_grid[i,j] = W.act_grid[i,j];
+            bMvt = false;
+         end
+         if bMvt
+            W.nbMvt = W.nbMvt + 1;
+         end
+        #Input()
+    end
+
+    W.act_grid = W.nxt_grid;
+    W.nbCell = length(findall(W.act_grid))
+    #printGrid(W.nIt,W.act_grid,W.nbMvt)
+end
+function printGrid(nIt::Int64,G::Array{Bool,2},nbMvt::Int64)
+    println("Day : ", nIt)
+    println("#(Mvt|",nIt-1," -> ",nIt,") = ",nbMvt)
+    for i = 1:size(G,1)
+        for j = 1:size(G,2)
+            print("[",Int(G[i,j]),"]")
+            if (j == size(G,2))
+                print(" - [$i]")
+            end
+        end
+        println()
+    end
+    for j = 1:size(G,2)
+        print("[$j]")
+    end
+    println()
+    println("---")
+end
