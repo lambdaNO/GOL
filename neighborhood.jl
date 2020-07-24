@@ -5,7 +5,7 @@ function mooreNeigh(i,j,nbL,nbC)
     end
     return valIdx
 end
-
+###########################################################
 function getNghbd(W::World)
     N = zeros(Int64,W.nbL,W.nbC);
     for i = 1:W.nbC, j =1:W.nbL
@@ -21,3 +21,10 @@ function getNghbd(W::World)
     return N
 end
 ###########################################################
+function getWNghbf(W::World,i::Int64,j::Int64)
+    p = false; q = false; r = false;
+    if (j>1) p = W.act_grid[i,j-1] else p = false  end
+    if (j<W.nbC) r = W.act_grid[i,j+1] else r = false end
+    q = W.act_grid[i,j]
+    return p,q,r
+end
