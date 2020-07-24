@@ -10,6 +10,7 @@
 - [Deux (deux ?) minutes pour John Conway](https://youtu.be/9Hpy6MKM-J8)
 ## Référence S.Wolfram
 - [Les 256 Règles](http://140.177.205.81/01/01/rulelist.html)
+- [Elementary Cellular Automaton](https://mathworld.wolfram.com/ElementaryCellularAutomaton.html)
 ## Patterns
 - [Source 1](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 - [Source 2](http://pi.math.cornell.edu/~lipa/mec/lesson6.html)
