@@ -12,23 +12,28 @@ mutable struct Data
     rNbCL::Array{Float64,1}
     #
     cntL::Array{}   # Stockée des listes {{lig,col}{lig,col}, ...}
+    #
+    cvgCrit::Bool
 end
 ###########################################################
 function data(L,C,I)
-    Data(L,C,I,[],[],[],[],[],[])
+    Data(L,C,I,[],[],[],[],[],[],false)
 end
 ###########################################################
-function saveAsMatFile(D::Data)
+function saveAsJLDFile(D::Data,r::Int64)
     L = D.nbL; C = D.nbC;
-    filename = "data_$L-$C.mat";
-    file = matopen(filename, "w")
-        write(file, "D", D)
-    close(file)
+    if (r < 0)
+        r = "std"
+    end
+    filename = "DATA/data_$L-$C-r$r.jld";
+    jldopen(filename, "w") do file
+        write(file, "D", D)  # alternatively, say "@write file A"
+    end
 end
 ###########################################################
-function readAsMatFile(S::String)
-    # file = matopen("matfile.mat")
-    # read(file, "varname") # note that this does NOT introduce a variable ``varname`` into scope
-    # close(file)
-    # vars = matread("matfile.mat")
+function readAsJDLFile(S::String)
+    D = jldopen("DATA/$S.jld","r") do file
+        read(file, "D")
+    end
+    return D
 end
